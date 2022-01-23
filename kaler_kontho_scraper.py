@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-import pandas as pd
 
 page = "https://www.kalerkantho.com/"
 response = requests.get(page)
@@ -35,23 +34,14 @@ page_names={}
 for i in page_keys:
     page_names[i] = []
 
-
 for i in range(len(urls)):
     tmp = urls[i].split('/')
     if tmp[3] == 'print-edition':
         if tmp[4] in page_names:
-            page_names[tmp[4]].append(urltexts[i])
-
+            page_names[tmp[4]].append(urls[i])
+        
     if tmp[3] == 'feature':
-            page_names[tmp[3]].append(urltexts[i])
+        page_names[tmp[3]].append(urls[i])
 
 for i,j in enumerate(page_names.items()):
-    print(i,j) 
-
-
-# for i in urls[:20]:
-#     tmp = requests.get(i)
-#     print(tmp.status_code)
-
-# x = pd.DataFrame(page_names)
-# print(x.head)
+    print(i,j)
