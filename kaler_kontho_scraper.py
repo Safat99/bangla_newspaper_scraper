@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
+import os
+from single_page_scrapping import extracting_paragraph
 
 page = "https://www.kalerkantho.com/"
 response = requests.get(page)
@@ -43,5 +45,29 @@ for i in range(len(urls)):
     if tmp[3] == 'feature':
         page_names[tmp[3]].append(urls[i])
 
-for i,j in enumerate(page_names.items()):
-    print(i,j)
+########## for showing all the pages and links ###########
+# for i,j in enumerate(page_names.items()):
+#     print(i,j)
+#############################
+
+count =0
+for i in page_names.values():
+    for j in i:
+        extracting_paragraph(j)
+        count +=1
+        print(count,"links extracted")
+
+
+
+##############
+output_folder = 'outputs/'
+def file_sorting():
+    if not os.path.exists(output_folder):
+        os.mkdir(output_folder)
+    os.chdir(output_folder)
+    for i in page_names.keys():
+        if not os.path.exists(i):
+            os.mkdir(i)
+        else:
+            os.chdir(i)
+########################
