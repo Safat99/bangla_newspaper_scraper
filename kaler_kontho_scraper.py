@@ -1,3 +1,4 @@
+from logging import exception
 from bs4 import BeautifulSoup
 import requests
 import os
@@ -53,10 +54,14 @@ for i in range(len(urls)):
 count =0
 for i in page_names.values():
     for j in i:
-        extracting_paragraph(j)
-        count +=1
-        print(count,"links extracted")
-
+        try:
+            extracting_paragraph(j)
+            count +=1
+            print(count,"links extracted")
+        except Exception as e:
+            print("error occured")
+            print(e)
+            continue
 
 
 ##############
